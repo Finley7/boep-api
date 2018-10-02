@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::group([
-    'middleware' => ['api'], 'namespace' => 'api'], function() {
+    'middleware' => ['api'], 'namespace' => 'Api'], function() {
 
     Route::get('/', function() {
         return ['status'=> 'ok', 'message' => 'api endpoint reached'];
