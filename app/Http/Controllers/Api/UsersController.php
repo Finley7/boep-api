@@ -155,7 +155,7 @@ class UsersController extends Controller
         $user->save();
         Storage::put('public/avatars/' . $avatar_name, base64_decode($request->input('image')));
 
-        return ['ok'];
+        return ['status' => 'ok', 'avatar' => $avatar_name];
 
     }
 }
