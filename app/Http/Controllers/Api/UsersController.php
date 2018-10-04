@@ -16,6 +16,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -133,11 +134,28 @@ class UsersController extends Controller
 
     public function avatar($avatar) {
 
-        $dirname = dirname(dirname(dirname(dirname(__DIR__)))) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "avatars" . DIRECTORY_SEPARATOR;
+        return response(
+            Storage::get('public/avatars/' . $avatar)
+        )->header('Content-type', 'image/png');
 
+    }
 
+    public function newAvatar(Request $request) {
 
-        return response(file_get_contents($dirname . $avatar))->header('Content-type', 'image/png');
+        $request->validate([
+            'image' => 'present|required',
+            'id' => 'present|required|integer'
+        ]);
+
+        $avatar_name = bin2hex(openssl_random_pseudo_bytes(16)) . '.png';
+        $user = User::find($request->input('id'));
+
+        $user->avatar = $avatar_name;
+
+        $user->save();
+        Storage::put('public/avatars/' . $avatar_name, base64_decode($request->input('image')));
+
+        return ['ok'];
 
     }
 }

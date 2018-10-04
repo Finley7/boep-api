@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::group([
-    'middleware' => ['api'], 'namespace' => 'Api'], function() {
+    'middleware' => ['cors'], 'namespace' => 'Api'], function() {
 
     Route::get('/', function() {
         return ['status'=> 'ok', 'message' => 'api endpoint reached'];
@@ -27,6 +27,7 @@ Route::group([
             Route::post('login', 'UsersController@login');
             Route::post('fingerprint', 'UsersController@fingerprint');
             Route::post('logout', 'UsersController@logout');
+            Route::post('new-avatar', 'UsersController@newAvatar');
         });
     }
 );
