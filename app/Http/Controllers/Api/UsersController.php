@@ -88,9 +88,13 @@ class UsersController extends Controller
 
         if(!is_null($sessionCheck)) {
 
-            $users = User::where('name', 'like', '%' . $username . '%');
+            $users = User::where('name', 'like', '%' . $username . '%')->select(['id', 'name', 'avatar']);
 
-            return $users;
+            return new JsonResponse([
+                'status' => 'success',
+                'amount' => $users->count(),
+                'results' => $users->get()->toArray()
+            ]);
 
         } else {
             throw new UnauthorizedException();
