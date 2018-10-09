@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::group([
-    'namespace' => 'Api'], function() {
+    'middleware' => ['cors'], 'namespace' => 'Api'], function() {
 
     Route::get('/', function() {
         return ['status'=> 'ok', 'message' => 'api endpoint reached'];
