@@ -23,11 +23,12 @@ Route::group([
         Route::prefix('users')->group(function() {
             Route::get('{token}', 'UsersController@user');
             Route::get('avatars/{avatar}', 'UsersController@avatar');
-            Route::post('create', 'UsersController@create');
-            Route::post('login', 'UsersController@login');
-            Route::post('fingerprint', 'UsersController@fingerprint');
+            Route::post('create', 'AuthenticationController@create');
+            Route::post('login', 'AuthenticationController@login');
+            Route::post('fingerprint', 'AuthenticationController@fingerprint');
             Route::post('logout', 'UsersController@logout');
             Route::post('new-avatar', 'UsersController@newAvatar');
+            Route::get('search/{token}/{username}', 'UsersController@searchUsers');
         });
     }
 );
