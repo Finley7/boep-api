@@ -12,11 +12,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Session;
 use App\User;
+use http\Exception\InvalidArgumentException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\UnauthorizedException;
 use Image;
 
 class UsersController extends Controller
@@ -87,8 +90,10 @@ class UsersController extends Controller
 
             $users = User::where('name', 'like', '%' . $username . '%');
 
-            return ['ok'];
+            return $users;
 
+        } else {
+            throw new UnauthorizedException();
         }
     }
 }
