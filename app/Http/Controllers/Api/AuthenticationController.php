@@ -27,13 +27,15 @@ class AuthenticationController extends Controller
             'password' => 'min:3|max:128|required|present'
         ]);
 
-        User::create([
-            'name' => $request->input('username'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password'))
-        ]);
+        $user = new User();
 
-        return new JsonResponse(['message' => 'success']);
+        $user->name = $request->input('username');
+        $user->email = $request->input('email');
+        $user->password =  Hash::make($request->input('password'));
+
+        $user->save();
+
+        return new JsonResponse(['message' => 'success', 'user' => $user]);
 
     }
 
@@ -60,7 +62,7 @@ class AuthenticationController extends Controller
                 'expires' => new \DateTime('+120 days')
             ]);
 
-            return ['message' => 'success', 'token' => $session->token];
+            return ['message' => 'success', 'token' => $session->token, 'user' => $session->user];
 
         } else {
             return new JsonResponse(['message' => 'Password incorrect'], 422);
@@ -97,5 +99,21 @@ class AuthenticationController extends Controller
         } else {
             return new JsonResponse(['message' => 'regular_login_first'], 404);
         }
+    }
+
+    public function setFbId(Request $request) {
+
+        $request->validate([
+            'firebaseId' => 'present|required',
+            'user_id' => 'present|required|number'
+        ]);
+
+        $user = User::find($request->input('user_id'));
+
+        $user->firebaseId = $request->input('firebaseId');
+        $user->save();
+
+        return new JsonResponse(['success']);
+
     }
 }

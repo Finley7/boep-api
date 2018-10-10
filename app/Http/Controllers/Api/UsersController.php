@@ -105,4 +105,20 @@ class UsersController extends Controller
             throw new UnauthorizedException();
         }
     }
+
+    public function addBuddy(Request $request) {
+
+        $buddy = new Buddy();
+
+        $buddy->first_user = $request->input('first_user');
+        $buddy->second_user = $request->input('second_user');
+        $buddy->status = "pending";
+
+        $buddy->save();
+
+        return new JsonResponse([
+            'request' => 'sent',
+        ]);
+
+    }
 }

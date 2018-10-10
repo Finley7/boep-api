@@ -28,6 +28,8 @@ Route::group([
             Route::post('fingerprint', 'AuthenticationController@fingerprint');
             Route::post('logout', 'UsersController@logout');
             Route::post('new-avatar', 'UsersController@newAvatar');
+            Route::post('add-buddy', 'UsersController@addBuddy');
+            Route::post('set-firebase-id', 'UsersController@setFbId');
             Route::get('search/{token}/{username}', 'UsersController@searchUsers');
         });
     }
