@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\buddy;
 use App\Http\Controllers\Controller;
 use App\Session;
 use App\User;
@@ -29,7 +30,11 @@ class UsersController extends Controller
         $session = Session::where('token', $token)->first();
 
         if(!is_null($session) && $session->expires < new \DateTime()) {
-            return new JsonResponse($session->user);
+
+            $user = $session->user;
+            $user['buddies'] = Buddy::where(['']);
+
+            return new JsonResponse();
         } else {
             return new JsonResponse(['message' => 'invalid token'], 403);
         }
