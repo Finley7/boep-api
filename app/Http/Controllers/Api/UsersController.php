@@ -118,7 +118,7 @@ class UsersController extends Controller
 
         return new JsonResponse([
             'request' => 'sent',
-            'firebaseId' => $buddy->second_user->firebaseId
+            'firebaseId' => User::find($buddy->second_user)->firebaseId
         ]);
 
     }
