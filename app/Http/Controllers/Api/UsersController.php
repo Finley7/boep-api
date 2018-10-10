@@ -118,6 +118,7 @@ class UsersController extends Controller
 
         return new JsonResponse([
             'request' => 'sent',
+            'firebaseId' => $buddy->second_user->firebaseId
         ]);
 
     }
