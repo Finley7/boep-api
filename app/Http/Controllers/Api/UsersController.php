@@ -32,9 +32,9 @@ class UsersController extends Controller
         if(!is_null($session) && $session->expires < new \DateTime()) {
 
             $user = $session->user;
-            $user['buddies'] = Buddy::where(['']);
+            $user['buddies'] = Buddy::where(['first_user' => $session->user->id, 'second_user' => $session->user->id, 'status' => 'accepted']);
 
-            return new JsonResponse();
+            return new JsonResponse($user);
         } else {
             return new JsonResponse(['message' => 'invalid token'], 403);
         }
