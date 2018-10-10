@@ -32,6 +32,7 @@ class AuthenticationController extends Controller
         $user->name = $request->input('username');
         $user->email = $request->input('email');
         $user->password =  Hash::make($request->input('password'));
+        $user->firebaseId = "TBD";
 
         $user->save();
 
