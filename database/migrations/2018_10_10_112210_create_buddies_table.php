@@ -15,6 +15,8 @@ class CreateBuddiesTable extends Migration
     {
         Schema::create('buddies', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('first_user');
+            $table->unsignedInteger('second_user');
             $table->foreign('first_user')->references('id')->on('users');
             $table->foreign('second_user')->references('id')->on('users');
             $table->string('status');
