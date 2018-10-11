@@ -108,6 +108,15 @@ class UsersController extends Controller
 
     public function addBuddy(Request $request) {
 
+        $buddyCheck = Buddy::where(['first_user' => $request->input('first_user'), 'second_user' => $request->input('second_user')]);
+
+        if($buddyCheck->count() > 0) {
+            return new JsonResponse([
+                'request' => 'not_sent',
+                'message' => 'This request has already been sent'
+            ], 400);
+        }
+
         $buddy = new Buddy();
 
         $buddy->first_user = $request->input('first_user');
