@@ -106,7 +106,7 @@ class AuthenticationController extends Controller
 
         $request->validate([
             'firebaseId' => 'present|required',
-            'user_id' => 'present|required|number'
+            'user_id' => 'present|required|integer'
         ]);
 
         $user = User::find($request->input('user_id'));
