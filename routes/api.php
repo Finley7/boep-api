@@ -29,8 +29,8 @@ Route::group([
             Route::post('logout', 'UsersController@logout');
             Route::post('new-avatar', 'UsersController@newAvatar');
             Route::post('add-buddy', 'UsersController@addBuddy');
-            Route::post('set-firebase-id', 'UsersController@setFbId');
-            Route::get('search/{token}/{username}', 'AuthenticationController@searchUsers');
+            Route::post('set-firebase-id', 'AuthenticationController@setFbId');
+            Route::get('search/{token}/{username}', 'UsersController@searchUsers');
         });
     }
 );
